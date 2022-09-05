@@ -1,0 +1,22 @@
+<div class="chat-wrapper">
+  <ng-container [ngTemplateOutlet]="usersProfile"></ng-container>
+
+  <div class="header-chat-box"></div>
+
+  <div class="message-chat-box"></div>
+
+  <div class="bottom-chat-box">
+    <div class="container">
+      <div class="input-chat">
+        <input type="text" />
+      </div>
+      <button class="button-chat" mat-flat-button color="primary">
+        Primary
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #usersProfile>
+  <div class="users-profile"></div>
+</ng-template>
