@@ -10,10 +10,15 @@ import { LayoutComponent } from './layout/layout.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { TabsBarComponent } from './components/tabs-bar/tabs-bar.component';
 import { MaterialModule } from './modules/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
+    CommonModule,
+    FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,

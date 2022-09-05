@@ -3,17 +3,36 @@
 
   <div class="header-chat-box"></div>
 
-  <div class="message-chat-box"></div>
+  <div class="message-chat-box">
+    <div class="message-container">
+      <ng-container *ngFor="let item of messages">
+        <div class="message-wrapper">
+          <div class="message">{{ item.message }}</div>
+          <div class="profile-avatar"></div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
 
   <div class="bottom-chat-box">
-    <div class="container">
-      <div class="input-chat">
-        <input type="text" />
-      </div>
-      <button class="button-chat" mat-flat-button color="primary">
-        Primary
+    <form
+      class="container"
+      (click)="handleSendMessage()"
+      (keydown)="handleSendMessage($event)"
+    >
+      <mat-icon class="mat-icon-attach" matBadge="16">attach_file</mat-icon>
+      <mat-icon class="mat-icon-reaction" matBadge="16">add_reaction</mat-icon>
+      <input
+        class="input-chat"
+        type="text"
+        [(ngModel)]="valueInput"
+        [ngModelOptions]="{ standalone: true }"
+        placeholder="input text"
+      />
+      <button class="button-chat" type="submit" mat-flat-button color="primary">
+        Send
       </button>
-    </div>
+    </form>
   </div>
 </div>
 
