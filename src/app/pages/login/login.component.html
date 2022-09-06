@@ -1,1 +1,66 @@
-<p>login works!</p>
+<div class="login-wrapper">
+  <ng-container [ngSwitch]="data?.step">
+    <ng-container
+      *ngSwitchCase="'login'"
+      [ngTemplateOutlet]="login"
+    ></ng-container>
+    <ng-container
+      *ngSwitchCase="'registration'"
+      [ngTemplateOutlet]="registration"
+    ></ng-container>
+  </ng-container>
+</div>
+
+<ng-template #login>
+  <div class="title-login">
+    <div>Login</div>
+  </div>
+
+  <form class="form-login" [formGroup]="formLogin">
+    <span class="title-input">Input you email</span>
+    <input class="input-email" formControlName="email" type="email" />
+    <button
+      mat-raised-button
+      color="primary"
+      class="button-login"
+      [disabled]="isControlInvalid('email')"
+      (click)="handleRedirect()"
+    >
+      Primary
+    </button>
+  </form>
+</ng-template>
+
+<ng-template #registration>
+  <div class="title-login">
+    <div>Registration</div>
+  </div>
+
+  <form class="form-login" [formGroup]="formLogin">
+    <span class="title-input">Input First Name </span>
+    <input class="input-email" formControlName="firstName" type="text" />
+    <span class="title-input">Input Last Name </span>
+
+    <input class="input-email" formControlName="lastName" type="text" />
+    <span class="title-input">Input Password </span>
+
+    <input class="input-email" formControlName="password" type="password" />
+    <span class="title-input">Input Repeat Password, please </span>
+
+    <input
+      class="input-email"
+      formControlName="repeatPassword"
+      type="password"
+    />
+
+    <button
+      mat-raised-button
+      color="primary"
+      class="button-login"
+      [disabled]="isControlInvalid('email')"
+      (click)="handleRedirect()"
+    >
+      Primary
+    </button>
+  </form>
+</ng-template>

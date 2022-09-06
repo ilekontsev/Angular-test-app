@@ -6,13 +6,58 @@
   <div class="message-chat-box">
     <div class="message-container">
       <ng-container *ngFor="let item of messages">
-        <div class="message-wrapper">
-          <div class="message">{{ item.message }}</div>
-          <div class="profile-avatar"></div>
+        <div
+          class="message-wrapper"
+          [ngClass]="{
+            'right-position-message': item.position === 'right',
+            'left-position-message': item.position === 'left'
+          }"
+        >
+          <ng-container
+            *ngIf="item.position === 'left'"
+            [ngTemplateOutlet]="userAvatar"
+            [ngTemplateOutletContext]="{ user: item }"
+          ></ng-container>
+
+          <div
+            class="message"
+            [ngClass]="
+              item.firstName === user.firstName
+                ? 'user-message'
+                : 'interlocutors-message'
+            "
+          >
+            {{ item.message }}
+          </div>
+
+          <ng-container
+            *ngIf="item.position === 'right'"
+            [ngTemplateOutlet]="userAvatar"
+            [ngTemplateOutletContext]="{ user: item }"
+          ></ng-container>
+        </div>
+
+        <div
+          class="message-wrapper message-date"
+          [ngClass]="{
+            'right-position-message': item.position === 'right',
+            'left-position-message': item.position === 'left'
+          }"
+        >
+          {{ item.date | date: "h:mm MMM d, y" }}
         </div>
       </ng-container>
     </div>
   </div>
+
+  <mat-tab-group
+    animationDuration="0ms"
+    (selectedTabChange)="changeTab($event)"
+  >
+    <mat-tab label="Global"></mat-tab>
+    <mat-tab label="Sergey"></mat-tab>
+    <mat-tab label="Group"></mat-tab>
+  </mat-tab-group>
 
   <div class="bottom-chat-box">
     <form
@@ -37,5 +82,36 @@
 </div>
 
 <ng-template #usersProfile>
-  <div class="users-profile"></div>
+  <div class="users-profile">
+    <ng-container *ngFor="let user of listUsers">
+      <div
+        class="user-profile"
+        [ngStyle]="{
+          'background-color': user.backgroundColor
+        }"
+      >
+        <div class="list-user">
+          {{ user.firstName[0] | titlecase }}
+        </div>
+      </div>
+    </ng-container>
+    <div class="user-profile"></div>
+
+    <div class="user-profile"></div>
+    <div class="user-profile"></div>
+    <div class="user-profile"></div>
+  </div>
+</ng-template>
+
+<ng-template #userAvatar let-user="user">
+  <div
+    [ngStyle]="{
+      'background-color': user.backgroundColor
+    }"
+    class="profile-avatar"
+  >
+    <div class="profile-user-name">
+      {{ user.firstName[0] | titlecase }}
+    </div>
+  </div>
 </ng-template>
