@@ -4,48 +4,24 @@
   <div class="header-chat-box"></div>
 
   <div class="message-chat-box">
-    <div class="message-container">
-      <ng-container *ngFor="let item of messages">
-        <div
-          class="message-wrapper"
-          [ngClass]="{
-            'right-position-message': item.position === 'right',
-            'left-position-message': item.position === 'left'
-          }"
-        >
-          <ng-container
-            *ngIf="item.position === 'left'"
-            [ngTemplateOutlet]="userAvatar"
-            [ngTemplateOutletContext]="{ user: item }"
-          ></ng-container>
+    <div
+      class="message-container-other"
+      *ngIf="currentMessages[tabIndex]?.length"
+    >
+      <ng-container
+        *ngFor="let message of currentMessages[tabIndex]"
+        [ngTemplateOutlet]="messages"
+        [ngTemplateOutletContext]="{ message: message }"
+      >
+      </ng-container>
+    </div>
 
-          <div
-            class="message"
-            [ngClass]="
-              item.firstName === user.firstName
-                ? 'user-message'
-                : 'interlocutors-message'
-            "
-          >
-            {{ item.message }}
-          </div>
-
-          <ng-container
-            *ngIf="item.position === 'right'"
-            [ngTemplateOutlet]="userAvatar"
-            [ngTemplateOutletContext]="{ user: item }"
-          ></ng-container>
-        </div>
-
-        <div
-          class="message-wrapper message-date"
-          [ngClass]="{
-            'right-position-message': item.position === 'right',
-            'left-position-message': item.position === 'left'
-          }"
-        >
-          {{ item.date | date: "h:mm MMM d, y" }}
-        </div>
+    <div class="message-container" *ngIf="historyMessages[tabIndex]?.length">
+      <ng-container
+        *ngFor="let message of historyMessages[tabIndex]"
+        [ngTemplateOutlet]="messages"
+        [ngTemplateOutletContext]="{ message: message }"
+      >
       </ng-container>
     </div>
   </div>
@@ -54,35 +30,80 @@
     animationDuration="0ms"
     (selectedTabChange)="changeTab($event)"
   >
-    <mat-tab label="Global"></mat-tab>
-    <mat-tab label="Sergey"></mat-tab>
-    <mat-tab label="Group"></mat-tab>
+    <ng-container *ngFor="let chat of chats">
+      <mat-tab label="{{ chat.chatName }}"></mat-tab>
+    </ng-container>
   </mat-tab-group>
 
   <div class="bottom-chat-box">
-    <form
-      class="container"
-      (click)="handleSendMessage()"
-      (keydown)="handleSendMessage($event)"
-    >
+    <form class="container" (keydown)="handleSendMessage($event)">
       <mat-icon class="mat-icon-attach" matBadge="16">attach_file</mat-icon>
       <mat-icon class="mat-icon-reaction" matBadge="16">add_reaction</mat-icon>
       <input
         class="input-chat"
         type="text"
+        placeholder="input text"
         [(ngModel)]="valueInput"
         [ngModelOptions]="{ standalone: true }"
-        placeholder="input text"
       />
-      <button class="button-chat" type="submit" mat-flat-button color="primary">
+      <button
+        mat-flat-button
+        class="button-chat"
+        type="submit"
+        color="primary"
+        (click)="handleSendMessage()"
+      >
         Send
       </button>
     </form>
   </div>
 </div>
 
+<ng-template #messages let-message="message">
+  <div
+    class="message-wrapper"
+    [ngClass]="{
+      'right-position-message': message.position === 'right',
+      'left-position-message': message.position === 'left'
+    }"
+  >
+    <ng-container
+      *ngIf="message.position === 'left'"
+      [ngTemplateOutlet]="userAvatar"
+      [ngTemplateOutletContext]="{ user: message }"
+    ></ng-container>
+
+    <div
+      class="message"
+      [ngClass]="
+        message.firstName === user.firstName
+          ? 'user-message'
+          : 'interlocutors-message'
+      "
+    >
+      {{ message.message }}
+    </div>
+
+    <ng-container
+      *ngIf="message.position === 'right'"
+      [ngTemplateOutlet]="userAvatar"
+      [ngTemplateOutletContext]="{ user: message }"
+    ></ng-container>
+  </div>
+
+  <div
+    class="message-wrapper message-date"
+    [ngClass]="{
+      'right-position-message': message.position === 'right',
+      'left-position-message': message.position === 'left'
+    }"
+  >
+    {{ message.date | date: "h:mm MMM d, y" }}
+  </div>
+</ng-template>
+
 <ng-template #usersProfile>
-  <div class="users-profile">
+  <div class="users-profile" *ngIf="listUsers.length">
     <ng-container *ngFor="let user of listUsers">
       <div
         class="user-profile"
@@ -91,7 +112,7 @@
         }"
       >
         <div class="list-user">
-          {{ user.firstName[0] | titlecase }}
+          {{ user?.firstName[0] | titlecase }}
         </div>
       </div>
     </ng-container>
@@ -111,7 +132,7 @@
     class="profile-avatar"
   >
     <div class="profile-user-name">
-      {{ user.firstName[0] | titlecase }}
+      {{ user?.firstName[0] | titlecase }}
     </div>
   </div>
 </ng-template>

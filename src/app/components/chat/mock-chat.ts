@@ -127,7 +127,142 @@ export const messagesUser_1 = [
   },
 ];
 
-export const userIvan = {
+export const messagesUser_2 = [
+  {
+    firstName: 'Ivan',
+    message: 'Hi',
+    type: 'text',
+    date: '',
+    backgroundColor: '#2e36ac',
+  },
+  {
+    firstName: 'Sergey',
+    message: 'Hey',
+    type: 'text',
+    date: '',
+    backgroundColor: '#b93e3e',
+  },
+  {
+    firstName: 'Sergey',
+    message: 'how a u?',
+    type: 'text',
+    date: '',
+    backgroundColor: '#b93e3e',
+  },
+  {
+    firstName: 'Ivan',
+    message: 'nice and u? ',
+    type: 'text',
+    date: '',
+    backgroundColor: '#2e36ac',
+  },
+  {
+    firstName: 'Sergey',
+    message: 'i too',
+    type: 'text',
+    date: '',
+    backgroundColor: '#b93e3e',
+  },
+  {
+    firstName: 'Sergey',
+    message: 'i too',
+    type: 'text',
+    date: '',
+    backgroundColor: '#b93e3e',
+  },
+  {
+    firstName: 'Sergey',
+    message: 'i too',
+    type: 'text',
+    date: '',
+    backgroundColor: '#b93e3e',
+  },
+  {
+    firstName: 'Sergey',
+    message: 'i too',
+    type: 'text',
+    date: '',
+    backgroundColor: '#b93e3e',
+  },
+  {
+    firstName: 'Sergey',
+    message: 'i too',
+    type: 'text',
+    date: '',
+    backgroundColor: '#b93e3e',
+  },
+  {
+    firstName: 'Sergey',
+    message: 'i too',
+    type: 'text',
+    date: '',
+    backgroundColor: '#b93e3e',
+  },
+  {
+    firstName: 'Sergey',
+    message: 'i too',
+    type: 'text',
+    date: '',
+    backgroundColor: '#b93e3e',
+  },
+  {
+    firstName: 'Sergey',
+    message: 'i too',
+    type: 'text',
+    date: '',
+    backgroundColor: '#b93e3e',
+  },
+  {
+    firstName: 'Sergey',
+    message: 'i too',
+    type: 'text',
+    date: '',
+    backgroundColor: '#b93e3e',
+  },
+  {
+    firstName: 'Sergey',
+    message: 'i too',
+    type: 'text',
+    date: '',
+    backgroundColor: '#b93e3e',
+  },
+  {
+    firstName: 'Sergey',
+    message: 'i too',
+    type: 'text',
+    date: '',
+    backgroundColor: '#b93e3e',
+  },
+  {
+    firstName: 'Sergey',
+    message: 'i too',
+    type: 'text',
+    date: '',
+    backgroundColor: '#b93e3e',
+  },
+  {
+    firstName: 'Sergey',
+    message: 'i too',
+    type: 'text',
+    date: '',
+    backgroundColor: '#b93e3e',
+  },
+  {
+    firstName: 'Sergey',
+    message: 'i too',
+    type: 'text',
+    date: '',
+    backgroundColor: '#b93e3e',
+  },
+];
+
+export const CHATS = [
+  { active: true, chatName: 'Global', type: 'group', publicAccess: true },
+  { active: true, chatName: 'Sergey', type: 'personal' },
+  { active: true, chatName: 'Group', type: 'group', publicAccess: false },
+];
+
+export const USER_IVAN = {
   backgroundColor: '#2e36ac',
   colorName: '',
   avatar: '',
@@ -135,7 +270,34 @@ export const userIvan = {
   lastName: '',
 };
 
-export const userSergey = [
+export const GLOBAL_USERS = [
+  {
+    backgroundColor: '#1f64db',
+    avatar: '',
+    firstName: 'Ivan',
+    lastName: '',
+  },
+  {
+    backgroundColor: '#c93e3e',
+    avatar: '',
+    firstName: 'Sergey',
+    lastName: '',
+  },
+  {
+    backgroundColor: '#b9db1f',
+    avatar: '',
+    firstName: 'hancock',
+    lastName: '',
+  },
+  {
+    backgroundColor: '#c40bd4',
+    avatar: '',
+    firstName: 'Elizaveta',
+    lastName: '',
+  },
+];
+
+export const PERSONAL_USERS = [
   {
     backgroundColor: '#b93e3e',
     avatar: '',

@@ -16,15 +16,15 @@
     <div>Login</div>
   </div>
 
-  <form class="form-login" [formGroup]="formLogin">
+  <form class="form-login" [formGroup]="loginForm">
     <span class="title-input">Input you email</span>
-    <input class="input-email" formControlName="email" type="email" />
+    <input class="input-text" formControlName="email" type="email" />
     <button
       mat-raised-button
       color="primary"
       class="button-login"
-      [disabled]="isControlInvalid('email')"
-      (click)="handleRedirect()"
+      [disabled]="loginForm.invalid"
+      (click)="onCreateUser(loginForm.value)"
     >
       Primary
     </button>
@@ -36,19 +36,19 @@
     <div>Registration</div>
   </div>
 
-  <form class="form-login" [formGroup]="formLogin">
+  <form class="form-login" [formGroup]="loginForm">
     <span class="title-input">Input First Name </span>
-    <input class="input-email" formControlName="firstName" type="text" />
+    <input class="input-text" formControlName="firstName" type="text" />
+
     <span class="title-input">Input Last Name </span>
+    <input class="input-text" formControlName="lastName" type="text" />
 
-    <input class="input-email" formControlName="lastName" type="text" />
     <span class="title-input">Input Password </span>
+    <input class="input-text" formControlName="password" type="password" />
 
-    <input class="input-email" formControlName="password" type="password" />
-    <span class="title-input">Input Repeat Password, please </span>
-
+    <span class="title-input">Input Repeat Password </span>
     <input
-      class="input-email"
+      class="input-text"
       formControlName="repeatPassword"
       type="password"
     />
@@ -57,8 +57,8 @@
       mat-raised-button
       color="primary"
       class="button-login"
-      [disabled]="isControlInvalid('email')"
-      (click)="handleRedirect()"
+      [disabled]="loginForm.invalid"
+      (click)="onRegisterUser(loginForm.value)"
     >
       Primary
     </button>

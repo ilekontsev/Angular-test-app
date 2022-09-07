@@ -1,3 +1,5 @@
+@import "../../../assets/styles/color.global.scss";
+
 .chat-wrapper {
   display: flex;
   flex-direction: column;
@@ -32,6 +34,12 @@
 
 .message-container {
   display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+}
+
+.message-container-other {
+  display: flex;
   flex-direction: column;
   justify-content: flex-end;
 }
@@ -42,12 +50,14 @@
   right: -70px;
   width: 70px;
   height: 500px;
-  background: #1413138a;
+  background: $dark-blue-alpha;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+
   .user-profile {
     margin: 10px 0;
     width: 40px;
@@ -70,7 +80,7 @@
 
 .input-chat {
   height: 30px;
-  color: black;
+  color: $black;
 }
 
 .button-chat {
@@ -87,11 +97,11 @@ mat-icon {
 
 .mat-icon-attach {
   transform: rotate(45deg);
-  color: #3c6abb;
+  color: $light-blue;
 }
 
 .mat-icon-reaction {
-  color: #f5d20d;
+  color: $light-yellow;
 }
 
 .message-wrapper {
@@ -112,16 +122,11 @@ mat-icon {
   justify-content: flex-start;
 }
 
-.message-box {
-  display: flex;
-  flex-direction: column;
-}
-
 .message {
   word-wrap: break-word;
   white-space: normal;
   font-size: 16px;
-  max-width: 50%;
+  max-width: 60%;
   border-radius: 10px;
   padding: 6px;
   margin: 10px 0;

@@ -15,6 +15,8 @@ export class ApiService {
         return this._httpClient.get(api);
       case 'POST':
         return this._httpClient.post(api, body);
+      case 'PATCH':
+        return this._httpClient.patch(api, body);
       default:
         return of(null);
     }

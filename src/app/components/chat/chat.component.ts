@@ -4,7 +4,14 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
-import { messagesUser_1, userIvan, userSergey } from './mock-chat';
+import { ActivatedRoute } from '@angular/router';
+import {
+  CHATS,
+  GLOBAL_USERS,
+  messagesUser_1,
+  PERSONAL_USERS,
+  USER_IVAN,
+} from './mock-chat';
 
 @Component({
   selector: 'app-chat',
@@ -14,7 +21,10 @@ import { messagesUser_1, userIvan, userSergey } from './mock-chat';
 })
 export class ChatComponent implements OnInit {
   valueInput = '';
-  messages: any = [];
+  chats: any = [];
+  currentMessages: any = {};
+  historyMessages: any = {};
+
   user: any;
   interlocutors: any;
   listUsers: any = [];
@@ -22,18 +32,39 @@ export class ChatComponent implements OnInit {
   constructor(private _ref: ChangeDetectorRef) {}
 
   ngOnInit(): void {
+    this.request();
+  }
+
+  request() {
     setTimeout(() => {
-      this.user = userIvan;
-      this.listUsers = userSergey;
-      this.parseMessages(messagesUser_1);
+      this.user = USER_IVAN;
+      this.chats = CHATS;
+      switch (this.tabIndex) {
+        case 1:
+          this.listUsers = PERSONAL_USERS;
+          this.parseMessages(messagesUser_1);
+          break;
+        case 0:
+          this.listUsers = GLOBAL_USERS;
+          this.parseMessages([]);
+          break;
+        default:
+          this.listUsers = [];
+          this.parseMessages([]);
+          break;
+      }
     }, 1000);
   }
 
   parseMessages(messages: any[]) {
-    if (!messages?.length && this.tabIndex !== 1) {
+    if (!messages.length) {
+      this.historyMessages[this.tabIndex] = [];
+      this.currentMessages[this.tabIndex] = [];
       return;
     }
+
     let parseMessagesUser: any = [];
+
     messages.forEach((message) => {
       if (message.firstName !== this.user.firstName) {
         parseMessagesUser.push({ ...message, position: 'left' });
@@ -41,8 +72,8 @@ export class ChatComponent implements OnInit {
         parseMessagesUser.push({ ...message, position: 'right' });
       }
     });
-    this.messages = parseMessagesUser;
-    this._ref.detectChanges();
+
+    this.historyMessages[this.tabIndex] = parseMessagesUser;
   }
 
   handleSendMessage(event?: KeyboardEvent) {
@@ -52,31 +83,27 @@ export class ChatComponent implements OnInit {
     if (event && event.code !== 'Enter') {
       return;
     }
-    this.messages.push({
+    if (!this.currentMessages[this.tabIndex]) {
+      this.currentMessages[this.tabIndex] = [];
+    }
+
+    this.currentMessages[this.tabIndex].push({
       message: this.valueInput,
       position: 'right',
-      ...userIvan,
+      ...USER_IVAN,
       date: new Date(),
     });
     //url
     this.valueInput = '';
-    this._ref.reattach();
   }
 
-  cache = [];
-
   changeTab(event: any) {
-    switch (event.tab.textLabel) {
-      case 'Sergey':
-        this.messages = this.cache.length ? this.cache : this.messages;
-        break;
-      default:
-        this.cache = this.messages;
-        this.messages = [];
-        break;
+    this.tabIndex = event.index;
+    if (
+      !this.currentMessages[this.tabIndex]?.length &&
+      !this.historyMessages[this.tabIndex]?.length
+    ) {
+      this.request();
     }
-    this._ref.reattach();
-
-    console.log(event.tab.textLabel);
   }
 }

@@ -12,26 +12,24 @@
 }
 
 .form-login {
-  width: 100%;
   margin-top: 100px;
+  padding: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
 .button-login {
   margin: 20px;
 }
 
-.input-email {
-  margin: 10px;
+.input-text {
   color: black;
   height: 30px;
   font-size: 20px;
 }
 
 .title-input {
-  font-size: 20px;
-  margin: 10px;
+  margin: 10px 0;
+  font-size: 16px;
 }
