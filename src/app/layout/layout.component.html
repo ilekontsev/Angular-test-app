@@ -1,7 +1,9 @@
 <div class="layout-wrapper">
   <div class="header"></div>
 
-  <div class="sidebar"></div>
+  <ng-container *ngIf="!(isDisableNavigationPanel | async)">
+    <app-navigation-panel></app-navigation-panel>
+  </ng-container>
 
   <div class="content">
     <div class="content-wrapper">

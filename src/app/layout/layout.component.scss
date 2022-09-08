@@ -14,13 +14,6 @@
   background: #111927;
 }
 
-.sidebar {
-  position: fixed;
-  height: 100%;
-  width: 50px;
-  background: #000;
-}
-
 .content {
   height: calc(100% - 60px);
   display: flex;

@@ -12,6 +12,8 @@ import { TabsBarComponent } from './components/tabs-bar/tabs-bar.component';
 import { MaterialModule } from './modules/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NavigationPanelComponent } from './components/navigation-panel/navigation-panel.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -22,6 +24,7 @@ import { CommonModule } from '@angular/common';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    HttpClientModule,
   ],
   declarations: [
     AppComponent,
@@ -30,6 +33,7 @@ import { CommonModule } from '@angular/common';
     LayoutComponent,
     ChatComponent,
     TabsBarComponent,
+    NavigationPanelComponent,
   ],
 
   providers: [],

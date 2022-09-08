@@ -4,9 +4,15 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
+  { path: '', redirectTo: 'chat', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent, data: { step: 'login' } },
+  {
+    path: 'login/registration',
+    component: LoginComponent,
+    data: { step: 'registration' },
+  },
+
+  { path: 'chat', component: HomeComponent },
   { path: '**', redirectTo: '' },
 ];
 

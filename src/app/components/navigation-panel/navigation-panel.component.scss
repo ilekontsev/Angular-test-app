@@ -1,0 +1,27 @@
+.sidebar {
+  position: fixed;
+  height: 100%;
+  width: 50px;
+  background: #1413138a;
+}
+
+.wrapper {
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navigation {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.navigation-active {
+  box-shadow: 0 0 5px rgb(104, 103, 103);
+  background: rgba(122, 104, 104, 0.322);
+}
