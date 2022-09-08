@@ -214,7 +214,7 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/core@^14.0.0 || ^15.0.0", "@angular/core@^14.1.0", "@angular/core@14.2.0":
+"@angular/core@^14.0.0 || ^15.0.0", "@angular/core@^14.1.0", "@angular/core@>=14.0.0-0", "@angular/core@14.2.0":
   "integrity" "sha512-m00WZL+df90QjrNmA43W8oSP1hyePoEXgw36JcFLQ+2ISO1HvqoeuKXIccyIQKpCuQ9VLNv5ptlTio6pjmcCqg=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-14.2.0.tgz"
   "version" "14.2.0"
@@ -1326,6 +1326,13 @@
   "integrity" "sha512-IkpVW/ehM1hWKln4fCA3NzJU8KwD+kIOvPZA4cqxoJHtE21CCzjyp+Kxbu0i5I4tBNOlXPL9mjwnWlL0VEG4Fg=="
   "resolved" "https://registry.npmjs.org/@csstools/selector-specificity/-/selector-specificity-2.0.2.tgz"
   "version" "2.0.2"
+
+"@ctrl/ngx-emoji-mart@^7.0.0":
+  "integrity" "sha512-wEk1MpA/RCLCF43gJiBWxk92XqlQrHHghe3qOeC6zoH8Nhqs5eIn4zcLiw3+JTrcrsa1biMw/XifkGDJ+f5JJQ=="
+  "resolved" "https://registry.npmjs.org/@ctrl/ngx-emoji-mart/-/ngx-emoji-mart-7.0.0.tgz"
+  "version" "7.0.0"
+  dependencies:
+    "tslib" "^2.3.0"
 
 "@discoveryjs/json-ext@0.5.7":
   "integrity" "sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw=="

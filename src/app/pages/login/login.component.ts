@@ -82,7 +82,8 @@ export class LoginComponent implements OnInit {
 
   onSignIn(data: any) {
     this._apiService.callApi('auth/login', 'POST', data).subscribe((res) => {
-      document.cookie = `accessToken=${res.accessToken}`;
+      this._apiService.setToken(res);
+
       this._router.navigateByUrl('/chat');
     });
   }

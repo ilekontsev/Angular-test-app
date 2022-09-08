@@ -13,9 +13,13 @@ import { MaterialModule } from './modules/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavigationPanelComponent } from './components/navigation-panel/navigation-panel.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { DragDropComponent } from './components/drag-drop/drag-drop.component';
+import { DragDropFileUploadDirective } from './components/drag-drop/drag-drop.directive';
+import { DialogCreateChatComponent } from './dialogs/dialog-create-chat/dialog-create-chat.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 @NgModule({
   imports: [
     BrowserModule,
@@ -26,8 +30,12 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    PickerModule,
   ],
-  providers: [CdkVirtualScrollViewport],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    CdkVirtualScrollViewport,
+  ],
   declarations: [
     AppComponent,
     HomeComponent,
@@ -36,6 +44,9 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
     ChatComponent,
     TabsBarComponent,
     NavigationPanelComponent,
+    DragDropComponent,
+    DragDropFileUploadDirective,
+    DialogCreateChatComponent,
   ],
 
   bootstrap: [AppComponent],

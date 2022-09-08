@@ -25,7 +25,9 @@
 }
 
 .bottom-chat-box {
-  height: 55px;
+  min-height: 55px;
+  max-height: 100px;
+  padding: 5px;
   width: 100%;
   background: #030c1b;
   border-bottom-left-radius: 10px;
@@ -57,6 +59,7 @@
   flex-direction: column;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+  color: white;
 
   .user-profile {
     margin: 10px 0;
@@ -107,11 +110,13 @@ mat-icon {
 .message-wrapper {
   display: flex;
   align-items: flex-start;
+  margin: 10px 10px 2px;
 }
 
 .message-date {
   margin: 0 10px 10px;
-  color: black;
+  font-size: 12px;
+  color: rgb(73, 73, 73);
 }
 
 .right-position-message {
@@ -129,7 +134,7 @@ mat-icon {
   max-width: 60%;
   border-radius: 10px;
   padding: 6px;
-  margin: 10px 0;
+  margin: 0 5px;
 }
 
 .user-message {
@@ -145,13 +150,12 @@ mat-icon {
 .profile-avatar {
   width: 30px;
   height: 30px;
-  margin: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   background: #000;
+  color: white;
   border-radius: 50%;
-  margin-right: 5px;
 }
 
 mat-tab-group {
@@ -174,4 +178,18 @@ mat-tab-group {
 .spinner {
   width: 100%;
   height: 100%;
+}
+
+.button-add-chat {
+  right: 0;
+  top: -10px;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 50%;
+  color: white;
+  background: rgb(17, 14, 187);
+  width: 30px;
+  height: 30px;
+  box-shadow: 0 0 5px black inset;
+  z-index: 100;
 }

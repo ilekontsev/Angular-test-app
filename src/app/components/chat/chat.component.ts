@@ -6,6 +6,9 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogCreateChatComponent } from 'src/app/dialogs/dialog-create-chat/dialog-create-chat.component';
+import { ApiService } from 'src/app/services/api.service';
 import { ChatService } from './chat.service';
 import {
   CHATS,
@@ -36,7 +39,9 @@ export class ChatComponent implements OnInit {
 
   constructor(
     private _ref: ChangeDetectorRef,
-    private _chatService: ChatService
+    private _chatService: ChatService,
+    private _dialog: MatDialog,
+    private _apiService: ApiService
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +52,10 @@ export class ChatComponent implements OnInit {
   request() {
     setTimeout(() => {
       this.user = USER_IVAN;
-      this.chats = CHATS;
+      this._apiService.callApi('chats', 'GET').subscribe((res) => {
+        this.chats = JSON.parse(res.chats);
+        this._ref.detectChanges();
+      });
       switch (this.tabIndex) {
         case 1:
           this.listUsers = PERSONAL_USERS;
@@ -63,14 +71,22 @@ export class ChatComponent implements OnInit {
           break;
       }
       this.isLoaded = true;
+      this._ref.detectChanges();
     }, 1000);
+  }
+
+  addChat() {}
+
+  openDialog() {
+    this._dialog.open(DialogCreateChatComponent, {
+      width: '250px',
+    });
   }
 
   parseMessages(messages: any[]) {
     if (!messages.length) {
       this.historyMessages[this.tabIndex] = [];
       this.currentMessages[this.tabIndex] = [];
-      this._ref.detectChanges();
       return;
     }
 
@@ -85,6 +101,17 @@ export class ChatComponent implements OnInit {
     });
 
     this.historyMessages[this.tabIndex] = parseMessagesUser;
+  }
+
+  isOpenEmoji = false;
+
+  emojiSelect(event: any) {
+    this.valueInput = this.valueInput + event.emoji.native;
+    this.openEmoji();
+  }
+
+  openEmoji() {
+    this.isOpenEmoji = !this.isOpenEmoji;
   }
 
   handleSendMessage(event?: KeyboardEvent) {
