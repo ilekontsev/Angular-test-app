@@ -32,6 +32,12 @@ export class LoginComponent implements OnInit {
       case 'login':
         this.loginForm = this._formBuilder.group({
           email: [null, [Validators.required, Validators.email]],
+          password: [null, [Validators.required]],
+        });
+        break;
+      case 'preRegistration':
+        this.loginForm = this._formBuilder.group({
+          email: [null, [Validators.required, Validators.email]],
         });
         break;
       case 'registration':
@@ -69,12 +75,15 @@ export class LoginComponent implements OnInit {
     this._apiService
       .callApi('auth/register', 'PATCH', data)
       .subscribe((res) => {
-        this._apiService
-          .callApi('auth/login', 'POST', data)
-          .subscribe((res) => {
-            this._router.navigateByUrl('/chat');
-          });
+        this.onSignIn(data);
       });
     this.loginForm.reset();
+  }
+
+  onSignIn(data: any) {
+    this._apiService.callApi('auth/login', 'POST', data).subscribe((res) => {
+      document.cookie = `accessToken=${res.accessToken}`;
+      this._router.navigateByUrl('/chat');
+    });
   }
 }
