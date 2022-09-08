@@ -2,8 +2,11 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   OnInit,
+  ViewChild,
 } from '@angular/core';
+import { ChatService } from './chat.service';
 import {
   CHATS,
   GLOBAL_USERS,
@@ -23,14 +26,21 @@ export class ChatComponent implements OnInit {
   chats: any = [];
   currentMessages: any = {};
   historyMessages: any = {};
-
+  isLoaded = false;
   user: any;
   interlocutors: any;
   listUsers: any = [];
   tabIndex = 0;
-  constructor(private _ref: ChangeDetectorRef) {}
+
+  @ViewChild('messageBox') readonly messageBox: ElementRef;
+
+  constructor(
+    private _ref: ChangeDetectorRef,
+    private _chatService: ChatService
+  ) {}
 
   ngOnInit(): void {
+    this._chatService.connectSocket();
     this.request();
   }
 
@@ -52,6 +62,7 @@ export class ChatComponent implements OnInit {
           this.parseMessages([]);
           break;
       }
+      this.isLoaded = true;
     }, 1000);
   }
 
@@ -59,6 +70,7 @@ export class ChatComponent implements OnInit {
     if (!messages.length) {
       this.historyMessages[this.tabIndex] = [];
       this.currentMessages[this.tabIndex] = [];
+      this._ref.detectChanges();
       return;
     }
 
@@ -92,17 +104,26 @@ export class ChatComponent implements OnInit {
       ...USER_IVAN,
       date: new Date(),
     });
+
+    this.messageBox.nativeElement.scrollTop = 0;
+
     //url
     this.valueInput = '';
   }
 
   changeTab(event: any) {
+    if (this.tabIndex === event.index) {
+      return;
+    }
     this.tabIndex = event.index;
     if (
       !this.currentMessages[this.tabIndex]?.length &&
       !this.historyMessages[this.tabIndex]?.length
     ) {
+      this.isLoaded = false;
       this.request();
+    } else {
+      this.isLoaded = true;
     }
   }
 }

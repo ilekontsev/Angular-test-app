@@ -3,27 +3,29 @@
 
   <div class="header-chat-box"></div>
 
-  <div class="message-chat-box">
-    <div
-      class="message-container-other"
-      *ngIf="currentMessages[tabIndex]?.length"
-    >
-      <ng-container
-        *ngFor="let message of currentMessages[tabIndex]"
-        [ngTemplateOutlet]="messages"
-        [ngTemplateOutletContext]="{ message: message }"
+  <div #messageBox class="message-chat-box">
+    <ng-container *ngIf="isLoaded; else showSpinner">
+      <div
+        class="message-container-other"
+        *ngIf="currentMessages[tabIndex]?.length"
       >
-      </ng-container>
-    </div>
+        <ng-container
+          *ngFor="let message of currentMessages[tabIndex]"
+          [ngTemplateOutlet]="messages"
+          [ngTemplateOutletContext]="{ message: message }"
+        >
+        </ng-container>
+      </div>
 
-    <div class="message-container" *ngIf="historyMessages[tabIndex]?.length">
-      <ng-container
-        *ngFor="let message of historyMessages[tabIndex]"
-        [ngTemplateOutlet]="messages"
-        [ngTemplateOutletContext]="{ message: message }"
-      >
-      </ng-container>
-    </div>
+      <div class="message-container" *ngIf="historyMessages[tabIndex]?.length">
+        <ng-container
+          *ngFor="let message of historyMessages[tabIndex]"
+          [ngTemplateOutlet]="messages"
+          [ngTemplateOutletContext]="{ message: message }"
+        >
+        </ng-container>
+      </div>
+    </ng-container>
   </div>
 
   <mat-tab-group
@@ -134,5 +136,11 @@
     <div class="profile-user-name">
       {{ user?.firstName[0] | titlecase }}
     </div>
+  </div>
+</ng-template>
+
+<ng-template #showSpinner>
+  <div class="spinner flex-center">
+    <mat-spinner></mat-spinner>
   </div>
 </ng-template>

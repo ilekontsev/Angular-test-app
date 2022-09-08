@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavigationPanelComponent } from './components/navigation-panel/navigation-panel.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
     MaterialModule,
     HttpClientModule,
   ],
+  providers: [CdkVirtualScrollViewport],
   declarations: [
     AppComponent,
     HomeComponent,
@@ -36,7 +38,6 @@ import { HttpClientModule } from '@angular/common/http';
     NavigationPanelComponent,
   ],
 
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -18,10 +18,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
 }
 
 .navigation-active {
-  box-shadow: 0 0 5px rgb(104, 103, 103);
+  width: 100%;
+  border-left: 5px solid rgb(219, 57, 57);
   background: rgba(122, 104, 104, 0.322);
 }
