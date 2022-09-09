@@ -1,12 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { DragdropService } from './drag-drop.service';
 
-describe('DragDropService', () => {
-  let service: DragdropService;
+import { ChatStateService } from './chat-state.service';
+
+describe('ChatStateService', () => {
+  let service: ChatStateService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DragdropService);
+    service = TestBed.inject(ChatStateService);
   });
 
   it('should be created', () => {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiService } from './services/api.service';
 import { StoreHelperService } from './services/store-helper.service';
 
 @Component({
@@ -8,7 +9,9 @@ import { StoreHelperService } from './services/store-helper.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor() {}
+  constructor(private _apiService: ApiService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._apiService.getDataUser();
+  }
 }

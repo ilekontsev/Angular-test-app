@@ -7,6 +7,7 @@ import { Observable, of } from 'rxjs';
 })
 export class ApiService {
   accessToken = '';
+  user: any = {};
 
   constructor(private _httpClient: HttpClient) {}
 
@@ -27,5 +28,11 @@ export class ApiService {
       default:
         return of(null);
     }
+  }
+
+  getDataUser(): void {
+    this.callApi('me', 'GET').subscribe((user) => {
+      this.user = user;
+    });
   }
 }

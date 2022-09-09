@@ -1,127 +1,10 @@
 <div class="chat-wrapper">
   <ng-container [ngTemplateOutlet]="usersProfile"></ng-container>
 
-  <div class="header-chat-box"></div>
-
-  <div #messageBox appDragDropFileUpload class="message-chat-box relative">
-    <ng-container *ngIf="isLoaded; else showSpinner">
-      <div
-        class="message-container-other"
-        *ngIf="currentMessages[tabIndex]?.length"
-      >
-        <ng-container
-          *ngFor="let message of currentMessages[tabIndex]"
-          [ngTemplateOutlet]="messages"
-          [ngTemplateOutletContext]="{ message: message }"
-        >
-        </ng-container>
-      </div>
-
-      <div class="message-container" *ngIf="historyMessages[tabIndex]?.length">
-        <ng-container
-          *ngFor="let message of historyMessages[tabIndex]"
-          [ngTemplateOutlet]="messages"
-          [ngTemplateOutletContext]="{ message: message }"
-        >
-        </ng-container>
-      </div>
-    </ng-container>
-
-    <ng-container *ngIf="isOpenEmoji">
-      <emoji-mart
-        class="absolute"
-        (emojiSelect)="emojiSelect($event)"
-      ></emoji-mart>
-    </ng-container>
-  </div>
-
-  <div class="relative">
-    <mat-tab-group
-      animationDuration="0ms"
-      (selectedTabChange)="changeTab($event)"
-    >
-      <ng-container *ngFor="let chat of chats">
-        <mat-tab label="{{ chat.name }}"></mat-tab>
-      </ng-container>
-    </mat-tab-group>
-
-    <input type="text" />
-
-    <button class="absolute button-add-chat" (click)="openDialog()">+</button>
-  </div>
-
-  <div class="bottom-chat-box">
-    <form class="container">
-      <app-drag-drop>
-        <mat-icon class="mat-icon-attach" matBadge="16">attach_file </mat-icon>
-      </app-drag-drop>
-
-      <mat-icon class="mat-icon-reaction" matBadge="16" (click)="openEmoji()"
-        >add_reaction</mat-icon
-      >
-
-      <input
-        class="input-chat"
-        type="text"
-        placeholder="input text"
-        [(ngModel)]="valueInput"
-        [ngModelOptions]="{ standalone: true }"
-      />
-      <button
-        mat-flat-button
-        class="button-chat"
-        type="submit"
-        color="primary"
-        (click)="handleSendMessage()"
-      >
-        Send
-      </button>
-    </form>
-  </div>
+  <app-header-chat></app-header-chat>
+  <app-message-box-chat class="wh100"></app-message-box-chat>
+  <app-footer-chat></app-footer-chat>
 </div>
-
-<ng-template #messages let-message="message">
-  <div
-    class="message-wrapper"
-    [ngClass]="{
-      'right-position-message': message.position === 'right',
-      'left-position-message': message.position === 'left'
-    }"
-  >
-    <ng-container
-      *ngIf="message.position === 'left'"
-      [ngTemplateOutlet]="userAvatar"
-      [ngTemplateOutletContext]="{ user: message }"
-    ></ng-container>
-
-    <div
-      class="message"
-      [ngClass]="
-        message.firstName === user.firstName
-          ? 'user-message'
-          : 'interlocutors-message'
-      "
-    >
-      {{ message.message }}
-    </div>
-
-    <ng-container
-      *ngIf="message.position === 'right'"
-      [ngTemplateOutlet]="userAvatar"
-      [ngTemplateOutletContext]="{ user: message }"
-    ></ng-container>
-  </div>
-
-  <div
-    class="message-wrapper message-date"
-    [ngClass]="{
-      'right-position-message': message.position === 'right',
-      'left-position-message': message.position === 'left'
-    }"
-  >
-    {{ message.date | date: "h:mm MMM d, y" }}
-  </div>
-</ng-template>
 
 <ng-template #usersProfile>
   <div class="users-profile" *ngIf="listUsers.length">
@@ -133,7 +16,7 @@
         }"
       >
         <div class="list-user">
-          {{ user?.firstName[0] | titlecase }}
+          {{ user?.id | titlecase }}
         </div>
       </div>
     </ng-container>
@@ -142,24 +25,5 @@
     <div class="user-profile"></div>
     <div class="user-profile"></div>
     <div class="user-profile"></div>
-  </div>
-</ng-template>
-
-<ng-template #userAvatar let-user="user">
-  <div
-    [ngStyle]="{
-      'background-color': user.backgroundColor
-    }"
-    class="profile-avatar"
-  >
-    <div>
-      {{ user?.firstName[0] | titlecase }}
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #showSpinner>
-  <div class="spinner flex-center">
-    <mat-spinner></mat-spinner>
   </div>
 </ng-template>

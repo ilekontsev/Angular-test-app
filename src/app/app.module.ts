@@ -20,6 +20,9 @@ import { DragDropComponent } from './components/drag-drop/drag-drop.component';
 import { DragDropFileUploadDirective } from './components/drag-drop/drag-drop.directive';
 import { DialogCreateChatComponent } from './dialogs/dialog-create-chat/dialog-create-chat.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { HeaderChatComponent } from './components/chat/header-chat/header-chat.component';
+import { FooterChatComponent } from './components/chat/footer-chat/footer-chat.component';
+import { MessageBoxChatComponent } from './components/chat/message-box-chat/message-box-chat.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -47,6 +50,9 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     DragDropComponent,
     DragDropFileUploadDirective,
     DialogCreateChatComponent,
+    HeaderChatComponent,
+    FooterChatComponent,
+    MessageBoxChatComponent,
   ],
 
   bootstrap: [AppComponent],

@@ -34,6 +34,7 @@ export class DragDropComponent implements OnInit {
       const url = URL.createObjectURL(file[i]);
       this.imgArr.push(url);
       this.fileArr.push({ item, url: url });
+      this.dragdropService.fileArr.next(this.fileArr);
     });
     this.fileArr.forEach((item) => {
       this.fileObj.push(item.item);

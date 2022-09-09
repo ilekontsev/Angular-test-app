@@ -1,0 +1,50 @@
+<div>
+  <div class="relative">
+    <mat-tab-group
+      animationDuration="0ms"
+      (selectedTabChange)="changeTab($event)"
+    >
+      <ng-container *ngFor="let chat of chats">
+        <mat-tab label="{{ chat.name }}"></mat-tab>
+      </ng-container>
+    </mat-tab-group>
+
+    <div class="image-list">
+      <div *ngFor="let file of fileArr | async; let i = index">
+        <div class="profile">
+          <img [src]="sanitize(file['url'])" alt="" />
+        </div>
+      </div>
+    </div>
+    <button class="absolute button-add-chat" (click)="openDialog()">+</button>
+  </div>
+
+  <div class="bottom-chat-box wh100 flex-center">
+    <form class="container">
+      <app-drag-drop>
+        <mat-icon class="mat-icon-attach" matBadge="16">attach_file </mat-icon>
+      </app-drag-drop>
+
+      <mat-icon class="mat-icon-reaction" matBadge="16" (click)="openEmoji()"
+        >add_reaction</mat-icon
+      >
+
+      <input
+        class="input-chat"
+        type="text"
+        placeholder="input text"
+        [(ngModel)]="valueInput"
+        [ngModelOptions]="{ standalone: true }"
+      />
+      <button
+        mat-flat-button
+        class="button-chat"
+        type="submit"
+        color="primary"
+        (click)="handleSendMessage()"
+      >
+        Send
+      </button>
+    </form>
+  </div>
+</div>

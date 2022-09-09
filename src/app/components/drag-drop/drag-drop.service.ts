@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 @Injectable({
@@ -7,7 +7,7 @@ import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 })
 export class DragdropService {
   constructor(private http: HttpClient) {}
-
+  fileArr = new BehaviorSubject([]);
   addFiles(images: File[]) {
     var arr: any = [];
     var formData = new FormData();
@@ -26,7 +26,6 @@ export class DragdropService {
       // Get server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    console.log(errorMessage);
-    return throwError(errorMessage);
+    return errorMessage;
   }
 }
