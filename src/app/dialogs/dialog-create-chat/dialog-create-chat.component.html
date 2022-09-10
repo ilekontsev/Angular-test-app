@@ -1,0 +1,23 @@
+<div>
+  <form [formGroup]="form">
+    <span>name chat</span>
+    <input type="text" formControlName="chatName" />
+    <div class="mt8">
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="form.invalid"
+        (click)="createChat(form.value)"
+      >
+        create chat
+      </button>
+    </div>
+  </form>
+
+  <!-- <mat-form-field appearance="fill">
+    <mat-label>Toppings</mat-label>
+    <mat-select [formControl]="toppings" multiple>
+      <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+    </mat-select>
+  </mat-form-field> -->
+</div>

@@ -13,15 +13,16 @@
 }
 
 .navigation {
+  color: white;
   width: 40px;
   height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
 }
 
 .navigation-active {
-  box-shadow: 0 0 5px rgb(104, 103, 103);
+  width: 100%;
+  border-left: 5px solid #db3939;
   background: rgba(122, 104, 104, 0.322);
 }

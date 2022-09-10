@@ -6,7 +6,15 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
+  accessToken = '';
+  user: any = {};
+
   constructor(private _httpClient: HttpClient) {}
+
+  setToken(tokens) {
+    localStorage.setItem('accessToken', tokens.accessToken);
+    localStorage.setItem('refreshToken', tokens.refreshToken);
+  }
 
   callApi(route: string, method = 'GET', body: any = {}): Observable<any> {
     const api = `/api/v1/${route}`;
@@ -20,5 +28,11 @@ export class ApiService {
       default:
         return of(null);
     }
+  }
+
+  getDataUser(): void {
+    this.callApi('me', 'GET').subscribe((user) => {
+      this.user = user;
+    });
   }
 }
