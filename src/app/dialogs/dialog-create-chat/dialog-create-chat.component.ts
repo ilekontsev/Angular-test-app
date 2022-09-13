@@ -9,6 +9,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class DialogCreateChatComponent implements OnInit {
   chatName = '';
+  usersList = [];
 
   constructor(
     private _apiService: ApiService,

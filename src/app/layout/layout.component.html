@@ -1,7 +1,7 @@
 <div class="layout-wrapper">
-  <div class="header"></div>
+  <app-header></app-header>
 
-  <ng-container *ngIf="!(isDisableNavigationPanel | async)">
+  <ng-container *ngIf="!isDisableNavigationPanel">
     <app-navigation-panel></app-navigation-panel>
   </ng-container>
 

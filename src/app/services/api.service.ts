@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 })
 export class ApiService {
   accessToken = '';
-  user: any = {};
+  user: any = { id: 32, firstName: 'sa' };
 
   constructor(private _httpClient: HttpClient) {}
 

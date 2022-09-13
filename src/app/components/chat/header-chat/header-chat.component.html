@@ -1,1 +1,18 @@
-<div class="header-chat-box"></div>
+<div class="header-chat-box flex-center">
+  <div class="flex-between wh100 m8">
+    <div class="profile-chat flex-center">L</div>
+
+    <div class="flex-center">
+      <input
+        placeholder="Search message..."
+        type="text"
+        class="global-input-style"
+      />
+      <mat-icon [matMenuTriggerFor]="menu" class="menu-icon m8">menu</mat-icon>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>Show File</button>
+        <button mat-menu-item>Show/Hide Users</button>
+      </mat-menu>
+    </div>
+  </div>
+</div>

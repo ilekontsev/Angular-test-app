@@ -1,0 +1,23 @@
+<div class="header">
+  <div class="header-container">
+    <div class="logo">Fierce</div>
+    <div class="flex-center">
+      <input
+        type="text"
+        placeholder="Search User..."
+        class="global-input-style"
+      />
+      <div class="flex-center ml10" *ngIf="user?.id">
+        <div class="flex-center" [matMenuTriggerFor]="menu">
+          <div class="user-profile flex-center">L</div>
+          <mat-icon>arrow_drop_down</mat-icon>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>Profile</button>
+            <button mat-menu-item>Settings</button>
+            <button mat-menu-item routerLink="/login">Sign Out</button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

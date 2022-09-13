@@ -30,6 +30,7 @@
   height: 30px;
   width: 60%;
   color: $black;
+  margin-left: 5px;
 }
 
 .image-list {
@@ -51,6 +52,7 @@ img {
 
 .mat-icon-reaction {
   color: $light-yellow;
+  margin: 0 4px;
 }
 
 .button-add-chat {
@@ -60,7 +62,7 @@ img {
   font-weight: bold;
   border-radius: 50%;
   color: white;
-  background: rgb(17, 14, 187);
+  background: #110ebb;
   width: 30px;
   height: 30px;
   box-shadow: 0 0 5px black inset;
@@ -69,4 +71,20 @@ img {
 
 mat-tab-group {
   background: #030c1b;
+}
+
+.delete-attach-file {
+  top: -10px;
+  right: -10px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 22px;
+  color: rgb(221, 42, 42);
+  height: 22px;
+  z-index: 200;
+  &:hover {
+    border: 1px solid black;
+  }
 }

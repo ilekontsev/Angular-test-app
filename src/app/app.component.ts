@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { ApiService } from './services/api.service';
-import { StoreHelperService } from './services/store-helper.service';
 
 @Component({
   selector: 'app-root',

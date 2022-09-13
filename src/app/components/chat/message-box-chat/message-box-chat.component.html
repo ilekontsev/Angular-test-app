@@ -1,10 +1,7 @@
-<div #messageBox appDragDropFileUpload class="message-chat-box relative">
+<div #messageBox appDragDropFileUpload class="wh100 message-chat-box relative">
   <ng-container>
-    <div
-      class="message-container-other"
-      *ngIf="currentMessages[tabIndex]?.length"
-    >
-      <ng-container *ngFor="let message of currentMessages[tabIndex]">
+    <div class="message-container-other" *ngIf="currentMessages?.length">
+      <ng-container *ngFor="let message of currentMessages">
         <ng-container
           [ngTemplateOutlet]="messages"
           [ngTemplateOutletContext]="{ message: message }"
@@ -22,10 +19,7 @@
       </ng-container>
     </div>
 
-    <div
-      class="message-container"
-      *ngIf="historyMessages.length && user.length"
-    >
+    <div class="message-container" *ngIf="historyMessages.length">
       <ng-container *ngFor="let message of historyMessages">
         <div
           class="message-wrapper message-date"
@@ -46,7 +40,7 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="isOpenEmoji">
+  <ng-container *ngIf="isOpenEmoji$ | async">
     <emoji-mart
       class="absolute"
       (emojiSelect)="emojiSelect($event)"
@@ -65,22 +59,46 @@
     <ng-container
       *ngIf="message.position === 'left'"
       [ngTemplateOutlet]="userAvatar"
-      [ngTemplateOutletContext]="{ user: message }"
+      [ngTemplateOutletContext]="{ user: message.user }"
     ></ng-container>
 
     <div
       class="message"
-      [ngClass]="
-        message.user.id === user?.id ? 'user-message' : 'interlocutors-message'
-      "
+      [ngClass]="{
+        disabled: isEditMessage,
+        'user-message': message.user?.id === user?.id,
+        'interlocutors-message': message.user?.id !== user?.id
+      }"
+      [matMenuTriggerFor]="menu"
+      (keydown)="handleDisableEdit($event)"
+      (focus)="handleDisableEdit()"
+      [contentEditable]="isEditMessage"
+      #messageContainer
     >
       {{ message.data }}
+      <div class="flex-wrap" *ngIf="message.payload?.length">
+        <ng-container *ngFor="let file of message.payload">
+          <div>
+            <img class="message-file" [src]="sanitize(file['url'])" alt="" />
+          </div>
+        </ng-container>
+      </div>
     </div>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="repeatMessage(message)">
+        Repeat message
+      </button>
+      <button mat-menu-item (click)="editMessage(message)">Edit message</button>
+      <button mat-menu-item (click)="deleteMessage(message)">
+        Delete message
+      </button>
+    </mat-menu>
 
     <ng-container
       *ngIf="message.position === 'right'"
       [ngTemplateOutlet]="userAvatar"
-      [ngTemplateOutletContext]="{ user: message }"
+      [ngTemplateOutletContext]="{ user: message.user }"
     ></ng-container>
   </div>
 </ng-template>
@@ -93,7 +111,7 @@
     class="profile-avatar"
   >
     <div>
-      {{ user?.id | titlecase }}
+      {{ user?.firstName[0] | titlecase }}
     </div>
   </div>
 </ng-template>

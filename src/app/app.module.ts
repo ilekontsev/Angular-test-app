@@ -23,6 +23,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { HeaderChatComponent } from './components/chat/header-chat/header-chat.component';
 import { FooterChatComponent } from './components/chat/footer-chat/footer-chat.component';
 import { MessageBoxChatComponent } from './components/chat/message-box-chat/message-box-chat.component';
+import { HeaderComponent } from './components/header/header.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -53,6 +54,7 @@ import { MessageBoxChatComponent } from './components/chat/message-box-chat/mess
     HeaderChatComponent,
     FooterChatComponent,
     MessageBoxChatComponent,
+    HeaderComponent,
   ],
 
   bootstrap: [AppComponent],

@@ -6,6 +6,9 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 
 const MODULES = [
   MatTabsModule,
@@ -15,6 +18,9 @@ const MODULES = [
   MatProgressSpinnerModule,
   DragDropModule,
   MatDialogModule,
+  MatMenuModule,
+  MatSelectModule,
+  MatInputModule,
 ];
 
 @NgModule({

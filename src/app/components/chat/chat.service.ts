@@ -9,6 +9,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class ChatService {
   isDisabledConnect = true;
+
   private stompClient: any = null;
 
   constructor(private _apiService: ApiService) {}
@@ -28,29 +29,37 @@ export class ChatService {
   }
 
   sendMessage(messageText: string, chatId: string): void {
-    // if (!this.currentMessages[this.tabIndex]) {
-    //   this.currentMessages[this.tabIndex] = [];
-    // }
-
-    // this.currentMessages[this.tabIndex].push({
-    //   data: this.valueInput,
-    //   position: 'right',
-    //   user: this.user,
-    //   date: new Date(),
-    // });
-
     const message = {
       chatId,
       data: messageText,
-      ownerId: this._apiService.user.id,
+      ownerId: this._apiService.user?.id,
     };
 
-    this.stompClient.send(`/app/message`, {}, JSON.stringify(message));
-
-    // this.messageBox.nativeElement.scrollTop = 0;
-
-    //url
+    // this.stompClient.send(`/app/message`, {}, JSON.stringify(message));
   }
+
+  parseHistoryMessages(messages: any[]) {
+    if (!messages.length) {
+      return [];
+    }
+
+    let parseMessagesUser: any = [];
+
+    const sortMessages = messages.sort((a, b) => {
+      return a.date - b.date;
+    });
+
+    sortMessages.forEach((message) => {
+      if (message.user.id !== this._apiService.user.id) {
+        parseMessagesUser.push({ ...message, position: 'left' });
+      } else {
+        parseMessagesUser.push({ ...message, position: 'right' });
+      }
+    });
+
+    return parseMessagesUser;
+  }
+
   getChats() {
     return this._apiService.callApi('chats', 'GET');
   }

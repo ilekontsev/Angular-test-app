@@ -1,36 +1,21 @@
 <div class="container fileUploadWrapper">
-  <ng-content></ng-content>
-
-  <form [formGroup]="form">
-    <div class="row">
-      <!-- Progress Bar -->
-      <div class="col-md-12" *ngIf="progress">
-        <div class="progress form-group">
-          <div
-            class="progress-bar progress-bar-striped bg-success"
-            role="progressbar"
-            [style.width.%]="progress"
-          ></div>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div
-          class="fileupload"
-          appDragDropFileUpload
-          (click)="fileField.click()"
-          (fileDropped)="upload($event)"
-        >
-          <ng-content></ng-content>
-          <input
-            type="file"
-            name="avatars"
-            #fileField
-            (change)="upload($any($event).target.files)"
-            hidden
-            multiple
-          />
-        </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="fileupload"
+        appDragDropFileUpload
+        (click)="fileField.click()"
+        (fileDropped)="upload($event)"
+      >
+        <ng-content></ng-content>
+        <input
+          type="file"
+          #fileField
+          (change)="upload($any($event).target.files)"
+          hidden
+          multiple
+        />
       </div>
     </div>
-  </form>
+  </div>
 </div>

@@ -1,9 +1,11 @@
 <div class="chat-wrapper">
-  <ng-container [ngTemplateOutlet]="usersProfile"></ng-container>
+  <div class="chat-container">
+    <ng-container [ngTemplateOutlet]="usersProfile"></ng-container>
 
-  <app-header-chat></app-header-chat>
-  <app-message-box-chat class="wh100"></app-message-box-chat>
-  <app-footer-chat></app-footer-chat>
+    <app-header-chat></app-header-chat>
+    <app-message-box-chat class="wh100 message-box-chat"></app-message-box-chat>
+    <app-footer-chat></app-footer-chat>
+  </div>
 </div>
 
 <ng-template #usersProfile>
@@ -16,7 +18,7 @@
         }"
       >
         <div class="list-user">
-          {{ user?.id | titlecase }}
+          {{ user?.firstName[0] | titlecase }}
         </div>
       </div>
     </ng-container>

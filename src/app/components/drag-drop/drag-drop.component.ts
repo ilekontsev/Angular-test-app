@@ -1,54 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { HttpEvent, HttpEventType } from '@angular/common/http';
-import { DomSanitizer } from '@angular/platform-browser';
-import { DragdropService } from './drag-drop.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { DragDropService } from './drag-drop.service';
 
 @Component({
   selector: 'app-drag-drop',
   templateUrl: './drag-drop.component.html',
   styleUrls: ['./drag-drop.component.scss'],
 })
-export class DragDropComponent implements OnInit {
-  fileArr: any = [];
-  imgArr = [];
-  fileObj = [];
-  form: FormGroup;
+export class DragDropComponent implements OnInit, OnDestroy {
   msg: string;
   progress: number = 0;
-  constructor(
-    public fb: FormBuilder,
-    private sanitizer: DomSanitizer,
-    public dragdropService: DragdropService
-  ) {
-    this.form = this.fb.group({
-      avatar: [null],
-    });
-  }
+  sub$: Subscription;
+
+  constructor(public dragDropService: DragDropService) {}
+
   ngOnInit() {}
 
-  upload(e: any) {
-    const fileListAsArray = Array.from(e);
+  upload(event: any): void {
+    const fileListAsArray = Array.from(event);
+    const fileArr = [];
     fileListAsArray.forEach((item, i) => {
-      const file = e as HTMLInputElement;
+      const file = event as HTMLInputElement;
       const url = URL.createObjectURL(file[i]);
-      this.imgArr.push(url);
-      this.fileArr.push({ item, url: url });
-      this.dragdropService.fileArr.next(this.fileArr);
+      fileArr.push({ item, url: url });
     });
-    this.fileArr.forEach((item) => {
-      this.fileObj.push(item.item);
-    });
+    this.dragDropService.setFileArr(fileArr);
     // Set files form control
-    this.form.patchValue({
-      avatar: this.fileObj,
-    });
-    this.form.get('avatar').updateValueAndValidity();
+    // this.form.patchValue({
+    //   avatar: this.fileObj,
+    // });
+    // this.form.get('avatar').updateValueAndValidity();
     // Upload to server
-    this.dragdropService.addFiles(this.form.value.avatar);
+    // this.dragDropService.addFiles(this.form.value.avatar);
   }
-  // Clean Url
-  sanitize(url: string) {
-    return this.sanitizer.bypassSecurityTrustUrl(url);
+
+  ngOnDestroy() {
+    this.sub$.unsubscribe();
   }
 }

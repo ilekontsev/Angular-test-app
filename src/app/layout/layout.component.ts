@@ -1,10 +1,10 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
-  Input,
   OnInit,
 } from '@angular/core';
-import { StoreHelperService } from '../services/store-helper.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-layout',
@@ -13,10 +13,17 @@ import { StoreHelperService } from '../services/store-helper.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent implements OnInit {
-  public isDisableNavigationPanel =
-    this._storeHelperService.isDisableNavigationPanel;
+  public isDisableNavigationPanel: boolean;
 
-  constructor(private _storeHelperService: StoreHelperService) {}
+  constructor(private _router: Router, private _ref: ChangeDetectorRef) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._router.events.subscribe((event: any) => {
+      if (event instanceof NavigationEnd) {
+        this.isDisableNavigationPanel = event.url === '/login';
+        this._ref.detectChanges();
+        return;
+      }
+    });
+  }
 }

@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ApiService } from 'src/app/services/api.service';
 import { ChatStateService } from '../chat-state.service';
 import { ChatService } from '../chat.service';
@@ -12,59 +19,74 @@ export class MessageBoxChatComponent implements OnInit {
   currentMessages: any = [];
   historyMessages = [];
   tabIndex = 0;
-  isOpenEmoji: boolean;
-  valueInput = '';
+  isOpenEmoji$ = this._chatStateService.isOpenEmoji;
   user = this._apiService.user;
+  isEditMessage = false;
+  message: any = {};
+  position = 0;
+
+  @ViewChild('messageBox') readonly messageBox: ElementRef;
+  @ViewChild('messageContainer') readonly messageContainer: ElementRef;
 
   constructor(
-    private _chatService: ChatService,
     private _apiService: ApiService,
-    private _chatStateService: ChatStateService
+    private _chatStateService: ChatStateService,
+    private _chatService: ChatService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
     this.subscription();
   }
 
-  subscription() {
+  subscription(): void {
     this._chatStateService.historyMessages.subscribe((res) => {
-      this.parseMessages(res);
+      this.historyMessages = this._chatService.parseHistoryMessages(res);
     });
     this._chatStateService.currentMessages.subscribe((res) => {
       this.currentMessages = res;
+      this.messageBox.nativeElement.scrollTop = 0;
     });
   }
 
-  parseMessages(messages: any[]) {
-    if (!messages.length) {
-      this.historyMessages[this.tabIndex] = [];
-      this.currentMessages[this.tabIndex] = [];
+  emojiSelect(event: any): void {
+    if (this.isEditMessage) {
+      this.message.data =
+        this.message.data.substr(0, this.position) +
+        event.emoji.native +
+        this.message.data.substr(this.position);
+    } else {
+      this._chatStateService.valueText.next(event.emoji.native);
+    }
+    this._chatStateService.openEmoji();
+  }
+
+  sanitize(url: any) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
+
+  handleDisableEdit(event?) {
+    const position = document.getSelection().anchorOffset - 1;
+    this.position = position > 0 ? position : 0;
+    if (!event) {
       return;
     }
 
-    let parseMessagesUser: any = [];
-
-    const sortMessages = messages.sort((a, b) => {
-      return a.date - b.date;
-    });
-
-    sortMessages.forEach((message) => {
-      if (message.user.id !== this.user.id) {
-        parseMessagesUser.push({ ...message, position: 'left' });
-      } else {
-        parseMessagesUser.push({ ...message, position: 'right' });
-      }
-    });
-
-    this.historyMessages = parseMessagesUser;
+    if (event.keyCode == 13) {
+      this.isEditMessage = false;
+      this.position = 0;
+      this.message.data = this.message.data.replace(/\r?\n/g, '');
+    }
   }
 
-  emojiSelect(event: any) {
-    this.valueInput = this.valueInput + event.emoji.native;
-    this.openEmoji();
+  repeatMessage(message) {}
+
+  editMessage(message) {
+    this.message = message;
+    this.isEditMessage = !this.isEditMessage;
   }
 
-  openEmoji() {
-    this.isOpenEmoji = !this.isOpenEmoji;
+  deleteMessage(message) {
+    this._chatStateService.deleteCurrentMessage(message);
   }
 }

@@ -1,8 +1,5 @@
 .message-chat-box {
-  width: 100%;
-  height: 100%;
   background: #e3e3e3;
-  overflow-y: auto;
   overflow-x: hidden;
   display: flex;
   flex-direction: column-reverse;
@@ -46,6 +43,12 @@
   justify-content: flex-start;
 }
 
+.message-file {
+  height: 130px;
+  width: 130px;
+  object-fit: cover;
+}
+
 .message {
   word-wrap: break-word;
   white-space: normal;
@@ -80,4 +83,8 @@
 .spinner {
   width: 100%;
   height: 100%;
+}
+
+.disabled {
+  pointer-events: none;
 }
